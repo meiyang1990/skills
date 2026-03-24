@@ -13,7 +13,7 @@ description: >-
 
 ## Purpose
 
-Analyze a software project module's source code and generate a comprehensive architecture design document in PDF format, primarily written in Chinese. The document covers:
+Analyze a software project module's source code and generate a comprehensive architecture design document in **PDF format** (this is a **hard requirement** — output MUST be a PDF file, no other format is acceptable), primarily written in Chinese. The document covers:
 
 1. **核心架构设计** — Architecture diagrams, module layering, class hierarchy
 2. **流程图与时序图** — Core workflow charts and sequence diagrams
@@ -97,6 +97,8 @@ Identify **4-6 important usage scenarios** and trace the complete call chain:
 
 ### Phase 3: PDF Document Generation
 
+> **⚠️ 硬性要求：最终输出必须且只能是 PDF 格式文件。不接受 Markdown、HTML、Word 或任何其他格式作为最终交付物。**
+
 #### 3.1 Document Structure
 
 Generate a PDF with the following chapters:
@@ -140,12 +142,20 @@ Use the bundled Python script at `scripts/generate_pdf.py` to generate the PDF.
 
 #### 3.3 PDF Naming Convention
 
-Name the PDF file as: `{Project}_{Module}_Design_Document.pdf`
+Name the PDF file strictly following this format: `{项目名称}_{模块名称}_{代码分支版本}_核心架构设计文档.pdf`
 
-Examples:
-- `Iceberg_BigQuery_Module_Design_Document.pdf`
-- `Iceberg_Core_Design_Document.pdf`
-- `Spring_WebMVC_Design_Document.pdf`
+**Naming rules:**
+- **项目名称**: The project name (e.g., `Iceberg`, `Spark`, `Flink`, `Spring`)
+- **模块名称**: The target module name (e.g., `BigQuery`, `Core`, `Runtime`, `WebMVC`)
+- **代码分支版本**: The current git branch name or version tag. Obtain by running `git rev-parse --abbrev-ref HEAD` or `git describe --tags --always`. Replace `/` with `-` in branch names (e.g., `feature-xyz` instead of `feature/xyz`)
+- **核心架构设计文档**: Fixed suffix, always use `核心架构设计文档`
+
+**Examples:**
+- `Iceberg_BigQuery_main_核心架构设计文档.pdf`
+- `Iceberg_Core_release-1.5_核心架构设计文档.pdf`
+- `Spark_Scheduler_branch-3.5_核心架构设计文档.pdf`
+- `Flink_Runtime_master_核心架构设计文档.pdf`
+- `Spring_WebMVC_v6.1.0_核心架构设计文档.pdf`
 
 Place the PDF in the **project root directory**.
 
@@ -194,7 +204,7 @@ After PDF generation:
 - [ ] At least 2 sequence diagrams are included
 - [ ] At least 3 design patterns are identified and explained
 - [ ] At least 4 key scenario call chains are documented
-- [ ] PDF is generated and placed in project root
+- [ ] PDF is generated in the correct naming format (`{项目名称}_{模块名称}_{代码分支版本}_核心架构设计文档.pdf`) and placed in project root
 - [ ] PDF is committed and pushed to remote
 
 ## Troubleshooting
